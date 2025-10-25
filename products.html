@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Products Page - Level 2</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Automation Demo Site</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products (Level 2)</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Products Catalog (Page Level 2)</h2>
+        <p>This page focuses on various selection elements for automation.</p>
+
+        <section>
+            <h3>1. Standard Dropdown Menu (Select)</h3>
+            <label for="dropdown-products">Select a Product Category:</label>
+            <select id="dropdown-products" name="product-category">
+                <option value="default" disabled selected>-- Select a category --</option>
+                <option value="electronics">Electronics</option>
+                <option value="apparel">Apparel</option>
+                <option value="home-goods">Home Goods</option>
+                <option value="books">Books (Hidden value for verification)</option>
+            </select>
+        </section>
+
+        <hr>
+
+        <section>
+            <h3>2. Checkboxes (Multiple Selection)</h3>
+            <p>Select all features that apply:</p>
+            <div class="checkbox-group">
+                <label>
+                    <input type="checkbox" id="check-feature-1" name="feature" value="A" checked>
+                    Feature A (Checked by default)
+                </label>
+                <label>
+                    <input type="checkbox" id="check-feature-2" name="feature" value="B">
+                    Feature B
+                </label>
+                <label>
+                    <input type="checkbox" id="check-feature-3" name="feature" value="C" disabled>
+                    Feature C (Disabled)
+                </label>
+            </div>
+        </section>
+
+        <hr>
+
+        <section>
+            <h3>3. Radio Buttons (Single Selection)</h3>
+            <p>Choose your preferred shipping speed:</p>
+            <div class="radio-group">
+                <label>
+                    <input type="radio" id="radio-shipping-1" name="shipping-speed" value="standard" checked>
+                    Standard (Default)
+                </label>
+                <label>
+                    <input type="radio" id="radio-shipping-2" name="shipping-speed" value="express">
+                    Express
+                </label>
+                <label>
+                    <input type="radio" id="radio-shipping-3" name="shipping-speed" value="overnight">
+                    Overnight
+                </label>
+            </div>
+        </section>
+
+        <hr>
+        
+        <button id="btn-save-settings" onclick="alert('Settings Saved!')">Save Selections</button>
+        
+    </div>
+</body>
+</html>
