@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Login - Automation Demo Site</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Specific styling for the login page to center the form */
+        .login-container {
+            width: 90%;
+            max-width: 400px;
+            margin: 100px auto; /* Centers vertically and horizontally */
+            padding: 30px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+        .success-message {
+            color: green;
+            margin-bottom: 15px;
+            font-weight: bold;
+            display: none; /* Hidden by default */
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <h2 style="text-align: center;">System Login Demo</h2>
+        <p style="text-align: center; color: var(--secondary-color);">
+            **Default Credentials: admin / admin**
+        </p>
+        
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+
+        <form id="login-form">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username">
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
+            
+            <button type="submit" id="btn-login">Log In</button>
+        </form>
+    </div>
+
+<script>
+        // Only keep the login form handler here
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+            event.preventDefault(); 
+
+            const usernameField = document.getElementById('username');
+            const passwordField = document.getElementById('password');
+            const errorMessage = document.getElementById('error-message');
+            const successMessage = document.getElementById('success-message');
+
+            errorMessage.style.display = 'none';
+            successMessage.style.display = 'none';
+            
+            const username = usernameField.value.trim();
+            const password = passwordField.value.trim();
+            
+            // --- 1. Error Handling: Empty Fields ---
+            if (username === "" || password === "") {
+                errorMessage.textContent = "Error: Both username and password fields must be filled.";
+                errorMessage.style.display = 'block';
+                return;
+            }
+
+            // --- 2. Login Validation ---
+            const DEFAULT_USER = 'admin';
+            const DEFAULT_PASS = 'admin';
+
+            if (username === DEFAULT_USER && password === DEFAULT_PASS) {
+                // --- 3. Successful Login ---
+                successMessage.textContent = "Login successful! Redirecting...";
+                successMessage.style.display = 'block';
+
+                sessionStorage.setItem('isLoggedIn', 'true'); 
+                
+                setTimeout(function() {
+                    window.location.href = 'index.html';
+                }, 500); 
+
+            } else {
+                // --- 4. Error Handling: Incorrect Credentials ---
+                errorMessage.textContent = "Error: Invalid username or password combination.";
+                errorMessage.style.display = 'block';
+                passwordField.value = ''; 
+            }
+        });
+    </script>
+    
+    <script src="scripts.js"></script>
+</body>
+</html>
