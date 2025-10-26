@@ -2,7 +2,7 @@
    Base Styles (Mobile-First) - Applies to ALL screen sizes
 ---------------------------------------------------------------- */
 :root {
-    --primary-color: #007bff;
+    --primary-color: #ff9100;
     --secondary-color: #6c757d;
     --background-color: #f8f9fa;
     --text-color: #212529;
