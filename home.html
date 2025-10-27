@@ -14,11 +14,30 @@
             <a href="index.html">Home</a>
             <a href="products.html">Products (Level 2)</a>
             <a href="contact.html">Contact</a>
+            <button id="btn-logout" onclick="logout()" style="float: right; margin-right: 0; background-color: #dc3545; border-color: #dc3545;">
+            Log Out
+        </button>
         </nav>
     </header>
 
     <div class="container">
         <h2>Welcome to the Home Page</h2>
+
+        <section style="margin-bottom: 30px;">
+            <h3>1. Dynamic Image Carousel</h3>
+            <div id="image-carousel" class="carousel">
+                <div class="carousel-track">
+                    <img src="https://picsum.photos/800/300?random=1" alt="Random Image 1" class="carousel-slide" data-slide-id="slide-1">
+                    <img src="https://picsum.photos/800/300?random=2" alt="Random Image 2" class="carousel-slide" data-slide-id="slide-2" style="display:none;">
+                    <img src="https://picsum.photos/800/300?random=3" alt="Random Image 3" class="carousel-slide" data-slide-id="slide-3" style="display:none;">
+                </div>
+                <button class="carousel-control prev" id="btn-carousel-prev">&lt;</button>
+                <button class="carousel-control next" id="btn-carousel-next">&gt;</button>
+            </div>
+        </section>
+        
+        <hr>
+
         <p>This page features various UI elements for your automation practice.</p>
 
         <section>
