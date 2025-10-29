@@ -1,25 +1,26 @@
+const currentPage = window.location.pathname.split('/').pop();
+
 // =========================================================
 // 1. SESSION CHECK - This runs immediately when the script loads
 // =========================================================
-(function() {
-    const currentPage = window.location.pathname.split('/').pop();
-    
-    // Pages that require login validation
-    const securedPages = ['home.html', 'products.html', 'contact.html'];
-    
-    if (securedPages.includes(currentPage)) {
-        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-            // Use replace() to ensure the back button doesn't take them to the secured page
-            window.location.replace('login.html');
-            return; // Stop script execution on this page
-        }
-    }
-    
-    // Optional: On login.html, redirect if already logged in (better UX)
-    if (currentPage === 'login.html' && sessionStorage.getItem('isLoggedIn') === 'true') {
-        window.location.replace('home.html');
-    }
-})();
+// (function() {
+//     
+//     // Pages that require login validation
+//     const securedPages = ['home.html', 'products.html', 'contact.html'];
+//     
+//     if (securedPages.includes(currentPage)) {
+//         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+//             // Use replace() to ensure the back button doesn't take them to the secured page
+//             window.location.replace('login.html');
+//             return; // Stop script execution on this page
+//         }
+//     }
+//     
+//     // Optional: On login.html, redirect if already logged in (better UX)
+//     if (currentPage === 'login.html' && sessionStorage.getItem('isLoggedIn') === 'true') {
+//         window.location.replace('home.html');
+//     }
+// })();
 
 
 // =========================================================
@@ -307,8 +308,6 @@ if (currentPage === 'cart.html') {
 updateCartIcon();
 
 // Check if we are on the products page and initiate fetch
-const currentPage = window.location.pathname.split('/').pop();
 if (currentPage === 'products.html' || currentPage === 'products.html#') {
-    // This simulates lazy loading by fetching the data when the DOM is ready
     document.addEventListener('DOMContentLoaded', fetchProducts);
 }
