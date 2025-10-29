@@ -3,24 +3,24 @@ const currentPage = window.location.pathname.split('/').pop();
 // =========================================================
 // 1. SESSION CHECK - This runs immediately when the script loads
 // =========================================================
-// (function() {
-//     
-//     // Pages that require login validation
-//     const securedPages = ['home.html', 'products.html', 'contact.html'];
-//     
-//     if (securedPages.includes(currentPage)) {
-//         if (sessionStorage.getItem('isLoggedIn') !== 'true') {
-//             // Use replace() to ensure the back button doesn't take them to the secured page
-//             window.location.replace('login.html');
-//             return; // Stop script execution on this page
-//         }
-//     }
-//     
-//     // Optional: On login.html, redirect if already logged in (better UX)
-//     if (currentPage === 'login.html' && sessionStorage.getItem('isLoggedIn') === 'true') {
-//         window.location.replace('home.html');
-//     }
-// })();
+(function() {
+    
+    // Pages that require login validation
+    const securedPages = ['home.html', 'products.html', 'contact.html'];
+    
+    if (securedPages.includes(currentPage)) {
+        if (sessionStorage.getItem('isLoggedIn') !== 'true') {
+            // Use replace() to ensure the back button doesn't take them to the secured page
+            window.location.replace('login.html');
+            return; // Stop script execution on this page
+        }
+    }
+    
+    // Optional: On login.html, redirect if already logged in (better UX)
+    if (currentPage === 'login.html' && sessionStorage.getItem('isLoggedIn') === 'true') {
+        window.location.replace('home.html');
+    }
+})();
 
 
 // =========================================================
