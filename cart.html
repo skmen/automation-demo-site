@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Shopping Cart</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Automation Demo Site</h1>
+        <nav>
+            <a href="index.html">Home</a>
+            <a href="products.html">Products (Level 2)</a>
+            <a href="contact.html">Contact</a>
+            <a href="cart.html" id="btn-cart" style="float: right; margin-right: 10px;">🛒 Cart</a>
+            <button id="btn-logout" onclick="logout()" style="float: right; margin-right: 0; background-color: #dc3545; border-color: #dc3545;">
+            Log Out
+        </button>
+        </nav>
+    </header>
+
+    <div class="container">
+        <h2>Your Shopping Cart</h2>
+
+        <div id="cart-items">
+            <!-- Cart items will be loaded here by JavaScript -->
+            <p>Your cart is empty.</p>
+        </div>
+
+        <div id="cart-summary">
+            <h3>Order Summary</h3>
+            <p>Subtotal: $<span id="cart-subtotal">0.00</span></p>
+            <p>Tax (5%): $<span id="cart-tax">0.00</span></p>
+            <h4>Total: $<span id="cart-total">0.00</span></h4>
+        </div>
+
+        <div class="cart-actions">
+            <button id="btn-checkout">Proceed to Checkout</button>
+            <button id="btn-continue-shopping" onclick="window.location.href='products.html'">Continue Shopping</button>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>

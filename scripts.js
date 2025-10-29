@@ -149,17 +149,162 @@ function loadProducts() {
                 <p>${product.description}</p>
                 <span class="price">$${product.price.toFixed(2)}</span>
                 <p>Status: ${statusText}</p>
-                <button id="btn-add-to-cart-${product.id}" 
-                        ${product.inStock ? '' : 'disabled'}
-                        data-product-name="${product.name}">
-                    ${product.inStock ? 'Add to Cart' : 'Unavailable'}
-                </button>
+                <div class="product-actions">
+                    <input type="number" id="qty-${product.id}" value="1" min="1" class="quantity-input" ${product.inStock ? '' : 'disabled'}>
+                    <button id="btn-add-to-cart-${product.id}" 
+                            ${product.inStock ? '' : 'disabled'}
+                            data-product-id="${product.id}"
+                            data-product-name="${product.name}"
+                            data-product-price="${product.price.toFixed(2)}">
+                        ${product.inStock ? 'Add to Cart' : 'Unavailable'}
+                    </button>
+                </div>
             </div>
         `;
     });
 
     productGrid.innerHTML = html;
+    addCartEventListeners(); // Add event listeners after products are loaded
 }
+
+function addCartEventListeners() {
+    document.querySelectorAll('.product-actions button').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productId = event.target.dataset.productId;
+            const productName = event.target.dataset.productName;
+            const productPrice = parseFloat(event.target.dataset.productPrice);
+            const quantityInput = document.getElementById(`qty-${productId}`);
+            const quantity = parseInt(quantityInput.value);
+
+            addToCart({ id: productId, name: productName, price: productPrice }, quantity);
+        });
+    });
+}
+
+function addToCart(product, quantity) {
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+    
+    if (cart[product.id]) {
+        cart[product.id].quantity += quantity;
+    } else {
+        cart[product.id] = { ...product, quantity };
+    }
+    
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+    alert(`${quantity} x ${product.name} added to cart!`);
+    updateCartIcon();
+}
+
+function updateCartIcon() {
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+    let totalItems = Object.values(cart).reduce((sum, item) => sum + item.quantity, 0);
+    const cartButton = document.getElementById('btn-cart');
+    if (cartButton) {
+        cartButton.textContent = `🛒 Cart (${totalItems})`;
+    }
+}
+
+function renderCart() {
+    const cartItemsContainer = document.getElementById('cart-items');
+    if (!cartItemsContainer) return;
+
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+    let html = '';
+    let subtotal = 0;
+
+    if (Object.keys(cart).length === 0) {
+        cartItemsContainer.innerHTML = '<p>Your cart is empty.</p>';
+        document.getElementById('cart-summary').style.display = 'none';
+        return;
+    }
+
+    for (const productId in cart) {
+        const item = cart[productId];
+        const itemTotal = item.price * item.quantity;
+        subtotal += itemTotal;
+
+        html += `
+            <div class="cart-item" data-product-id="${item.id}">
+                <img src="${item.imageUrl}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <h4>${item.name}</h4>
+                    <p>Price: $${item.price.toFixed(2)}</p>
+                    <div class="cart-item-controls">
+                        <label for="cart-qty-${item.id}">Quantity:</label>
+                        <input type="number" id="cart-qty-${item.id}" value="${item.quantity}" min="1" class="cart-quantity-input" data-product-id="${item.id}">
+                        <button class="btn-remove-item" data-product-id="${item.id}">Remove</button>
+                    </div>
+                    <p>Total: $${itemTotal.toFixed(2)}</p>
+                </div>
+            </div>
+        `;
+    }
+
+    cartItemsContainer.innerHTML = html;
+    document.getElementById('cart-summary').style.display = 'block';
+
+    // Calculate summary
+    const taxRate = 0.05; // 5% tax
+    const tax = subtotal * taxRate;
+    const total = subtotal + tax;
+
+    document.getElementById('cart-subtotal').textContent = subtotal.toFixed(2);
+    document.getElementById('cart-tax').textContent = tax.toFixed(2);
+    document.getElementById('cart-total').textContent = total.toFixed(2);
+
+    // Add event listeners for quantity changes and remove buttons
+    document.querySelectorAll('.cart-quantity-input').forEach(input => {
+        input.addEventListener('change', (event) => {
+            const productId = event.target.dataset.productId;
+            const newQuantity = parseInt(event.target.value);
+            updateCartItemQuantity(productId, newQuantity);
+        });
+    });
+
+    document.querySelectorAll('.btn-remove-item').forEach(button => {
+        button.addEventListener('click', (event) => {
+            const productId = event.target.dataset.productId;
+            removeCartItem(productId);
+        });
+    });
+}
+
+function updateCartItemQuantity(productId, newQuantity) {
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+    if (cart[productId]) {
+        cart[productId].quantity = newQuantity;
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        renderCart(); // Re-render cart to update totals
+        updateCartIcon();
+    }
+}
+
+function removeCartItem(productId) {
+    let cart = JSON.parse(sessionStorage.getItem('cart')) || {};
+    if (cart[productId]) {
+        delete cart[productId];
+        sessionStorage.setItem('cart', JSON.stringify(cart));
+        renderCart(); // Re-render cart to update totals
+        updateCartIcon();
+    }
+}
+
+// Checkout button (placeholder)
+const checkoutButton = document.getElementById('btn-checkout');
+if (checkoutButton) {
+    checkoutButton.addEventListener('click', () => {
+        alert('Proceeding to checkout! (Not implemented in this demo)');
+        // Here you would typically redirect to a checkout page or process the order
+    });
+}
+
+// Initial render for cart page
+if (currentPage === 'cart.html') {
+    renderCart();
+}
+
+// Update cart icon on all pages that have it
+updateCartIcon();
 
 // Check if we are on the products page and initiate fetch
 const currentPage = window.location.pathname.split('/').pop();
