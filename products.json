@@ -1,0 +1,38 @@
+[
+  {
+    "id": 1,
+    "name": "Software License",
+    "description": "A license for our premium software.",
+    "price": 99.99,
+    "inStock": true,
+    "category": "Software",
+    "imageUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 2,
+    "name": "User Manual",
+    "description": "A detailed user manual for our software.",
+    "price": 19.99,
+    "inStock": true,
+    "category": "Documentation",
+    "imageUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 3,
+    "name": "T-Shirt",
+    "description": "A comfortable t-shirt with our logo.",
+    "price": 24.99,
+    "inStock": false,
+    "category": "Swag",
+    "imageUrl": "https://via.placeholder.com/150"
+  },
+  {
+    "id": 4,
+    "name": "Online Course",
+    "description": "An in-depth online course.",
+    "price": 199.99,
+    "inStock": true,
+    "category": "Course",
+    "imageUrl": "https://via.placeholder.com/150"
+  }
+]
