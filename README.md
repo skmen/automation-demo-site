@@ -8,6 +8,9 @@
 
 This site is intended to serve as a **stable and predictable environment** for testing various automation frameworks (like Selenium, Cypress, Playwright, etc.). It includes a variety of interactive elements such as login forms, data tables, navigation menus, and form submissions that often challenge automation engineers.
 
+### Website Link
+https://skmen.github.io/automation-demo-site/index.html
+
 ### Key Features for Automation:
 
 * **Predictable Element IDs/Names:** Elements are designed with clear, stable locators to minimize the frustration of dealing with dynamic IDs.
@@ -61,5 +64,3 @@ npm run dev
 # or 
 yarn dev
 
-### Website Link
-https://skmen.github.io/automation-demo-site/index.html
